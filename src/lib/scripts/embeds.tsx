@@ -4,6 +4,7 @@ import Script from "next/script";
 
 declare global {
   interface Window {
+    // eslint-disable-next-line
     instgrm: any;
   }
 }
