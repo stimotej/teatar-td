@@ -1,3 +1,5 @@
+import { getShows } from "@/lib/data/events";
+import { sliderCategoryId } from "@/lib/utils/constants";
 import {
   Carousel,
   CarouselContent,
@@ -6,32 +8,34 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/modules/common/components/carousel";
-import Slide from "./slide";
-import { getShows } from "@/lib/data/events";
-import PageTitle from "@/modules/common/components/page-title";
-import LinkButton from "@/modules/common/components/link-button";
+import Slide from "@/modules/common/components/slide";
 
-export default async function PostSlider() {
+export default async function HeroSlider() {
   const showsRes = await getShows();
 
-  const firstThreeShows = showsRes.shows.slice(1, 4);
+  const sliderShows = showsRes.shows.filter((show) =>
+    show.categories.includes(sliderCategoryId)
+  );
+
+  if (!sliderShows || sliderShows.length <= 0) return null;
 
   return (
-    <div className="max-w-6xl mx-auto py-12">
-      <PageTitle>Na programu</PageTitle>
+    <section className="max-w-6xl mx-auto py-12">
       <Carousel
-        className="w-full my-12"
+        className="w-full"
         opts={{
           loop: true,
         }}
       >
         <CarouselContent>
-          {firstThreeShows.map((show, index) => (
+          {sliderShows.map((show, index) => (
             <CarouselItem key={index}>
               <Slide
                 title={show.title.rendered}
                 description={show.excerpt.rendered}
                 image={show.image_url}
+                linkTitle="Kupi ulaznice..."
+                linkHref="https://www.ulaznice.hr/web/"
                 preloadImage
               />
             </CarouselItem>
@@ -41,15 +45,6 @@ export default async function PostSlider() {
         <CarouselNext className="text-white" />
         <CarouselDots />
       </Carousel>
-      <LinkButton
-        href="https://www.ulaznice.hr/web/"
-        target="_blank"
-        rel="noreferrer noopener"
-        size="lg"
-        className="mx-auto"
-      >
-        Kupi ulaznice
-      </LinkButton>
-    </div>
+    </section>
   );
 }

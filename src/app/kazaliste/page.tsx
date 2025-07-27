@@ -8,12 +8,12 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen p-6 md:p-8 lg:p-12">
+    <>
       <Separator />
       <div className="max-w-6xl mx-auto py-24">
         <AboutUs />
       </div>
       <Separator />
-    </main>
+    </>
   );
 }

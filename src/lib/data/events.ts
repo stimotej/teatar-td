@@ -19,6 +19,7 @@ export async function getShows(props?: {
   let posts = await fetchApi<Post[]>(`/event?${queryParams}`, {
     next: {
       revalidate: revalidateTime,
+      tags: ["events"],
     },
     cache: "force-cache",
   });

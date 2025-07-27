@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/modules/home/today-program"
+    "src/modules/home/hero-slider"
   ],
   "exclude": ["node_modules"]
 }

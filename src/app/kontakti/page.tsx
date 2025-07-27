@@ -9,13 +9,13 @@ export const metadata: Metadata = {
 
 export default function Tickets() {
   return (
-    <main className="min-h-screen p-6 md:p-8 lg:p-12">
+    <>
       <Separator />
       <div className="max-w-6xl mx-auto py-24 flex flex-col lg:items-center lg:flex-row gap-12">
-        <Location />
+        <Location iframeLoading="eager" />
         <ContactList />
       </div>
       <Separator />
-    </main>
+    </>
   );
 }

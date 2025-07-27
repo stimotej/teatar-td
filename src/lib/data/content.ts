@@ -17,6 +17,7 @@ export async function getContent() {
   const posts = await fetchApi<Post[]>(`/posts?${queryParams}`, {
     next: {
       revalidate: revalidateTime,
+      tags: ["content"],
     },
     cache: "force-cache",
   });

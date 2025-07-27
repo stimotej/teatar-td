@@ -20,10 +20,10 @@ export default async function Shows({
     : 1;
 
   return (
-    <main className="min-h-screen p-6 md:p-8 lg:p-12">
+    <>
       <Separator />
       <CurrentShows page={page} />
       <Separator />
-    </main>
+    </>
   );
 }

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/modules/layout/header";
 import Footer from "@/modules/layout/footer";
+import ScrollToTopButton from "@/modules/common/components/scroll-to-top";
 
-const robotoSans = Roboto({
-  variable: "--font-roboto-sans",
+const interSans = Inter({
+  variable: "--font-inter-sans",
   subsets: ["latin"],
 });
 
@@ -22,10 +23,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${robotoSans.variable} antialiased`}>
+    <html lang="hr">
+      <body className={`${interSans.variable} antialiased`}>
         <Header />
-        {children}
+        <main className="min-h-screen p-6 md:p-8 lg:p-12">
+          {children}
+          <ScrollToTopButton />
+        </main>
         <Footer />
       </body>
     </html>

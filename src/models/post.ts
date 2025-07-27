@@ -39,13 +39,7 @@ export type Post = {
     end_showing: string;
     show_always: boolean;
     event_date: string;
-    documents: {
-      id: number;
-      media_type: string;
-      mime_type: string;
-      source_url: string;
-      title: string;
-    }[];
+    documents: Document[];
     order: number;
     link: string;
     dates: string[];
@@ -53,6 +47,10 @@ export type Post = {
     type: string;
     show_on_slider: boolean;
     is_course: boolean;
+    accordion_items: {
+      title: string;
+      description: string;
+    }[];
   };
   categories: number[];
   class_list: string[];

@@ -1,4 +1,5 @@
 import { getPost, getPosts } from "@/lib/data/posts";
+import Embeds from "@/lib/scripts/embeds";
 import clearHtmlFromString from "@/lib/utils/clear-html-from-string";
 import DisplayHTML from "@/modules/common/components/display-html";
 import { titleClassName } from "@/modules/common/components/page-title";
@@ -66,7 +67,7 @@ export default async function PostPage({
   if (!post) notFound();
 
   return (
-    <main className="min-h-screen p-6 md:p-8 lg:p-12">
+    <>
       <Separator />
       <div className="py-24 max-w-4xl mx-auto">
         <DisplayHTML
@@ -77,6 +78,7 @@ export default async function PostPage({
         <DisplayHTML html={post.content.rendered} className="mt-12" />
       </div>
       <Separator />
-    </main>
+      <Embeds />
+    </>
   );
 }

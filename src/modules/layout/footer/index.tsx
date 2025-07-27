@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Socials from "./socials";
+import NewsletterDialog from "./newsletter-dialog";
 
 export default function Footer() {
   return (
@@ -20,6 +21,7 @@ export default function Footer() {
           className="lg:w-96 md:w-80 sm:w-64 w-52 h-auto object-contain"
         />
         <Socials />
+        <NewsletterDialog className="mt-2" />
       </div>
       <Image
         src="/zenski-logo.png"

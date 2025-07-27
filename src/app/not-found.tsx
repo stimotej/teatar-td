@@ -3,7 +3,7 @@ import { Separator } from "@/modules/common/components/separator";
 
 export default function NotFound() {
   return (
-    <main className="p-6 md:p-8 lg:p-12">
+    <>
       <Separator />
       <div className="py-52 flex flex-col gap-4 items-center justify-center">
         <p className="text-9xl font-bold">404</p>
@@ -13,6 +13,6 @@ export default function NotFound() {
         </LinkButton>
       </div>
       <Separator />
-    </main>
+    </>
   );
 }

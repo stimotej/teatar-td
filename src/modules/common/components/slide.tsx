@@ -14,7 +14,7 @@ export default function Slide({
   preloadImage,
   className,
 }: {
-  title: string;
+  title?: string;
   description?: string;
   linkTitle?: string;
   linkHref?: Url;
@@ -31,7 +31,7 @@ export default function Slide({
     >
       <Image
         src={image}
-        alt={title}
+        alt={title ?? "Teatar &TD"}
         priority={preloadImage}
         fill
         sizes="100vw"
@@ -39,11 +39,13 @@ export default function Slide({
       />
       <div className="absolute inset-0 bg-black/50" />
       <div className="absolute inset-y-0 inset-x-12 flex flex-col items-center justify-center text-center">
-        <DisplayHTML
-          as="h2"
-          html={clearHtmlFromString(title)}
-          className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white"
-        />
+        {!!title && (
+          <DisplayHTML
+            as="h2"
+            html={clearHtmlFromString(title)}
+            className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white"
+          />
+        )}
         {!!description && (
           <DisplayHTML
             as="p"

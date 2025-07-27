@@ -20,10 +20,10 @@ export default async function Schedule({
     : 1;
 
   return (
-    <main className="min-h-screen p-6 md:p-8 lg:p-12">
+    <>
       <Separator />
       <ScheduleList page={page} />
       <Separator />
-    </main>
+    </>
   );
 }

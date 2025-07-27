@@ -12,7 +12,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-family: Inter, Arial, Helvetica, sans-serif;
 }
 
 .html-content a {

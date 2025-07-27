@@ -15,6 +15,7 @@ export function getPosts(props?: { limit?: number }) {
   return fetchApi<Post[]>(`/obavijesti?${queryParams}`, {
     next: {
       revalidate: revalidateTime,
+      tags: ["posts"],
     },
     cache: "force-cache",
   });
