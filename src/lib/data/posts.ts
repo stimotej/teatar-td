@@ -6,6 +6,7 @@ export function getPosts(props?: { limit?: number }) {
   const params = {
     categories: teatarTdCategoryId.toString(),
     per_page: props?.limit ? props.limit.toString() : "9999",
+    filter_by_date: "true",
     orderby: "date",
     order: "desc",
   };

@@ -26,8 +26,13 @@ export async function getShows(props?: {
 
   if (typeof props?.year !== "undefined") {
     posts = posts.filter((post) => {
-      const postDate = new Date(post.date);
-      return postDate.getFullYear() === props.year;
+      const sortedDates = post.meta.dates.sort((a, b) => {
+        const dateA = new Date(a);
+        const dateB = new Date(b);
+        return dateA.getTime() - dateB.getTime();
+      });
+      const premiereDate = new Date(sortedDates[0]);
+      return premiereDate.getFullYear() === props.year;
     });
   }
 
@@ -65,13 +70,32 @@ export async function getShowEvents({
     }))
   );
 
-  const filteredAndSorted = allShowEvents
-    // .filter((event) => new Date(event.date).getTime() >= Date.now())
-    .sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-      return dateA.getTime() - dateB.getTime();
-    });
+  // const filteredAndSorted = allShowEvents
+  //   // .filter((event) => new Date(event.date).getTime() >= Date.now())
+  //   .sort((a, b) => {
+  //     const dateA = new Date(a.date);
+  //     const dateB = new Date(b.date);
+  //     return dateA.getTime() - dateB.getTime();
+  //   });
+
+  const filteredAndSorted = allShowEvents.sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    const now = Date.now();
+
+    const aIsFutureOrToday = dateA.getTime() >= now;
+    const bIsFutureOrToday = dateB.getTime() >= now;
+
+    if (aIsFutureOrToday === bIsFutureOrToday) {
+      if (aIsFutureOrToday) {
+        return dateA.getTime() - dateB.getTime();
+      } else {
+        return dateB.getTime() - dateA.getTime();
+      }
+    }
+
+    return aIsFutureOrToday ? -1 : 1;
+  });
 
   const startIndex = (page - 1) * perPage;
   const endIndex = startIndex + perPage;

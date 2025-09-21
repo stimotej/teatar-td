@@ -16,7 +16,6 @@ export default async function Home() {
       <HeroSlider />
       <Separator />
       <TodaysProgram />
-      <Separator />
       <News />
       <Separator />
       <About />

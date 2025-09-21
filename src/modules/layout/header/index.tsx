@@ -13,6 +13,7 @@ import {
 import MenuIcon from "@/modules/common/icons/menu";
 import Link from "next/link";
 import LogoMobile from "./logo-mobile";
+import HeaderContainer from "./container";
 
 export default function Header() {
   return (
@@ -23,9 +24,9 @@ export default function Header() {
           <Image
             src="/teatar&td-logo-tekst.jpg"
             alt="Teatar&td logo - tekst"
-            width={500}
-            height={63}
-            className="w-[500px] h-auto object-contain"
+            width={600}
+            height={99}
+            className="w-[600px] h-auto object-contain"
           />
         </Link>
         <Image
@@ -36,7 +37,7 @@ export default function Header() {
           className="h-44 w-auto object-contain hidden lg:block"
         />
       </div>
-      <header className="sticky top-0 z-50 bg-(--background)">
+      <HeaderContainer>
         <div className="max-w-6xl mx-auto px-6 md:px-8 lg:px-12 flex items-center justify-between gap-4">
           {/* PHONE - IMAGE AND NAVIGATION */}
           <LogoMobile />
@@ -91,7 +92,7 @@ export default function Header() {
             ))}
           </ul>
         </nav>
-      </header>
+      </HeaderContainer>
       <div className="lg:h-8" />
     </>
   );
