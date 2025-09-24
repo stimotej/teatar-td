@@ -17,7 +17,7 @@ import clearHtmlFromString from "@/lib/utils/clear-html-from-string";
 export default async function ArchiveItem({ archive }: { archive: PostType }) {
   let shows: PostType[] = [];
 
-  if (archive.meta.link) {
+  if (!archive.meta.link) {
     shows = await getArchiveEvents(archive.id);
   }
 
