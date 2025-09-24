@@ -6,27 +6,36 @@ import {
 import { titleClassName } from "@/modules/common/components/page-title";
 import PlusIcon from "@/modules/common/icons/plus";
 import MinusIcon from "@/modules/common/icons/minus";
-import { getShows } from "@/lib/data/events";
 import { formatTitleAndSubtitle } from "@/lib/utils/format-title-and-subtitle";
 import Post from "@/modules/common/components/post";
 import { cn } from "@/lib/utils/cn";
+import type { Post as PostType } from "@/models/post";
+import { getArchiveEvents } from "@/lib/data/archives";
+import DisplayHTML from "../common/components/display-html";
+import clearHtmlFromString from "@/lib/utils/clear-html-from-string";
 
-export default async function ArchiveItem({ year }: { year: number }) {
-  const { shows } = await getShows({ year });
+export default async function ArchiveItem({ archive }: { archive: PostType }) {
+  let shows: PostType[] = [];
+
+  if (archive.meta.link) {
+    shows = await getArchiveEvents(archive.id);
+  }
 
   return (
     <Collapsible>
       <CollapsibleTrigger className="w-full flex items-center justify-between gap-2 px-8 py-3 border-3 border-(--primary) rounded-full data-[state=open]:[&>.plus]:hidden data-[state=closed]:[&>.minus]:hidden">
-        <h2 className={cn(titleClassName, "text-xl")}>
-          ARHIVA PREDSTAVA {year === 2020 ? "DO" : "OD"} {year}.
-        </h2>
+        <DisplayHTML
+          as="h2"
+          className={cn(titleClassName, "text-xl")}
+          html={clearHtmlFromString(archive.title.rendered)}
+        />
         <PlusIcon className="size-12 stroke-3 text-(--primary) plus" />
         <MinusIcon className="size-12 stroke-3 text-(--primary) minus" />
       </CollapsibleTrigger>
       <CollapsibleContent className="mt-4">
-        {year === 2020 ? (
+        {archive.meta.link ? (
           <iframe
-            src="https://view.officeapps.live.com/op/embed.aspx?src=https://www.sczg.unizg.hr/wp-content/uploads/2025/07/ARHIVA.docx"
+            src={`https://view.officeapps.live.com/op/embed.aspx?src=${archive.meta.link}`}
             className="w-full h-screen"
           />
         ) : shows.length > 0 ? (
@@ -47,7 +56,9 @@ export default async function ArchiveItem({ year }: { year: number }) {
             })}
           </ul>
         ) : (
-          <p className="text-center py-12 text-lg">Nema sadržaja za prikaz</p>
+          <p className="text-center py-12 text-lg text-neutral-600">
+            Nema sadržaja za prikaz
+          </p>
         )}
       </CollapsibleContent>
     </Collapsible>

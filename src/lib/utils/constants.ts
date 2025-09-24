@@ -1,6 +1,9 @@
 export const revalidateTime = 60;
 
 export const teatarTdCategoryId = 317;
+export const adminTeatarTdCategory = 353;
+
+export const teatarTdArchiveCategoryId = 354;
 
 export const teatarTdONamaPost = 40052;
 export const teatarTdProdajaUlaznicaPost = 40051;

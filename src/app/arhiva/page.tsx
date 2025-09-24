@@ -1,3 +1,4 @@
+import { getArchives } from "@/lib/data/archives";
 import ArchiveItem from "@/modules/archives/archive-item";
 import { Separator } from "@/modules/common/components/separator";
 import type { Metadata } from "next";
@@ -7,12 +8,14 @@ export const metadata: Metadata = {
 };
 
 export default async function Archives() {
+  const archives = await getArchives();
+
   return (
     <>
       <Separator />
       <div className="max-w-6xl mx-auto py-24 space-y-12">
-        {[2024, 2023, 2022, 2021, 2020].map((year) => (
-          <ArchiveItem key={year} year={year} />
+        {archives.map((archive) => (
+          <ArchiveItem key={archive.id} archive={archive} />
         ))}
       </div>
       <Separator />

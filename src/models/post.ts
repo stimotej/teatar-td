@@ -1,3 +1,5 @@
+import type { Document } from "./document";
+
 export type Post = {
   id: number;
   date: string;
@@ -47,6 +49,7 @@ export type Post = {
     type: string;
     show_on_slider: boolean;
     is_course: boolean;
+    archive_id: number;
     accordion_items: {
       title: string;
       description: string;
