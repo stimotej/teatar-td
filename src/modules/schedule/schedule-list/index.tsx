@@ -22,6 +22,7 @@ export default async function ScheduleList({ page }: { page: number }) {
               title={title}
               subtitle={subtitle}
               date={new Date(showEvent.date).toLocaleDateString("hr-HR", {
+                timeZone: "Europe/Zagreb",
                 weekday: "short",
                 day: "2-digit",
                 month: "2-digit",
