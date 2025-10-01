@@ -8,9 +8,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  const showsRes = await getShows();
+  const shows = await getShows();
 
-  return showsRes.shows.map((show) => ({
+  return shows.map((show) => ({
     slug: show.slug,
   }));
 }

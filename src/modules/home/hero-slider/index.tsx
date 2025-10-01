@@ -11,9 +11,9 @@ import {
 import Slide from "@/modules/common/components/slide";
 
 export default async function HeroSlider() {
-  const showsRes = await getShows();
+  const shows = await getShows();
 
-  const sliderShows = showsRes.shows.filter((show) =>
+  const sliderShows = shows.filter((show) =>
     show.categories.includes(sliderCategoryId)
   );
 

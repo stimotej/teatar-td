@@ -26,7 +26,7 @@ export function getArchives() {
 }
 
 export async function getArchiveEvents(archiveId: number) {
-  const { shows } = await getShows();
+  const shows = await getShows();
 
   return shows.filter((show) => show.meta.archive_id === archiveId);
 }

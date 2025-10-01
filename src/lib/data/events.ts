@@ -2,11 +2,7 @@ import fetchApi from "@/lib/utils/api";
 import type { Post } from "@/models/post";
 import { revalidateTime } from "../utils/constants";
 
-export async function getShows(props?: {
-  page?: number;
-  perPage?: number;
-  year?: number;
-}) {
+export async function getShows() {
   const params: Record<string, string> = {
     location: "Teatar &TD",
     per_page: "9999",
@@ -16,7 +12,7 @@ export async function getShows(props?: {
 
   const queryParams = new URLSearchParams(params).toString();
 
-  let posts = await fetchApi<Post[]>(`/event?${queryParams}`, {
+  const posts = await fetchApi<Post[]>(`/event?${queryParams}`, {
     next: {
       revalidate: revalidateTime,
       tags: ["events"],
@@ -24,17 +20,37 @@ export async function getShows(props?: {
     cache: "force-cache",
   });
 
-  if (typeof props?.year !== "undefined") {
-    posts = posts.filter((post) => {
-      const sortedDates = post.meta.dates.sort((a, b) => {
-        const dateA = new Date(a);
-        const dateB = new Date(b);
-        return dateA.getTime() - dateB.getTime();
-      });
-      const premiereDate = new Date(sortedDates[0]);
-      return premiereDate.getFullYear() === props.year;
-    });
-  }
+  return posts;
+}
+
+export async function getUpcomingShows(props?: {
+  page?: number;
+  perPage?: number;
+}) {
+  const posts = await getShows();
+
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
+  const shows = posts
+    .map((post) => {
+      const futureDates = post.meta.dates
+        .map((d) => new Date(d))
+        .filter((date) => date >= now)
+        .sort((a, b) => a.getTime() - b.getTime());
+
+      if (futureDates.length === 0) {
+        return null;
+      }
+
+      return {
+        ...post,
+        nextDate: futureDates[0],
+      };
+    })
+    .filter(Boolean) as (Post & { nextDate: Date })[];
+
+  shows.sort((a, b) => a.nextDate.getTime() - b.nextDate.getTime());
 
   if (typeof props?.perPage !== "undefined") {
     const { page = 1, perPage = 20 } = props;
@@ -43,12 +59,12 @@ export async function getShows(props?: {
     const endIndex = startIndex + perPage;
 
     return {
-      shows: posts.slice(startIndex, endIndex),
-      totalPages: Math.ceil(posts.length / perPage),
+      shows: shows.slice(startIndex, endIndex),
+      totalPages: Math.ceil(shows.length / perPage),
     };
   } else {
     return {
-      shows: posts,
+      shows: shows,
       totalPages: 1,
     };
   }
@@ -61,7 +77,7 @@ export async function getShowEvents({
   page?: number;
   perPage?: number;
 }) {
-  const { shows } = await getShows();
+  const { shows } = await getUpcomingShows();
 
   const allShowEvents = shows.flatMap((show) =>
     show.meta.dates.map((date) => ({
@@ -70,32 +86,13 @@ export async function getShowEvents({
     }))
   );
 
-  // const filteredAndSorted = allShowEvents
-  //   // .filter((event) => new Date(event.date).getTime() >= Date.now())
-  //   .sort((a, b) => {
-  //     const dateA = new Date(a.date);
-  //     const dateB = new Date(b.date);
-  //     return dateA.getTime() - dateB.getTime();
-  //   });
-
-  const filteredAndSorted = allShowEvents.sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-    const now = Date.now();
-
-    const aIsFutureOrToday = dateA.getTime() >= now;
-    const bIsFutureOrToday = dateB.getTime() >= now;
-
-    if (aIsFutureOrToday === bIsFutureOrToday) {
-      if (aIsFutureOrToday) {
-        return dateA.getTime() - dateB.getTime();
-      } else {
-        return dateB.getTime() - dateA.getTime();
-      }
-    }
-
-    return aIsFutureOrToday ? -1 : 1;
-  });
+  const filteredAndSorted = allShowEvents
+    .filter((event) => new Date(event.date).getTime() >= Date.now())
+    .sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateA.getTime() - dateB.getTime();
+    });
 
   const startIndex = (page - 1) * perPage;
   const endIndex = startIndex + perPage;
@@ -109,7 +106,7 @@ export async function getShowEvents({
 }
 
 export async function getShow(slug: string) {
-  const { shows } = await getShows();
+  const shows = await getShows();
 
   const show = shows.find((show) => show.slug === slug);
 

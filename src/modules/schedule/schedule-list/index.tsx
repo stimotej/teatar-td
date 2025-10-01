@@ -10,31 +10,37 @@ export default async function ScheduleList({ page }: { page: number }) {
 
   return (
     <div className="max-w-6xl mx-auto py-24">
-      <ul className="grid gap-8">
-        {showEvents.map((showEvent) => {
-          const { title, subtitle } = formatTitleAndSubtitle(
-            showEvent.show.title.rendered
-          );
-          return (
-            <Post
-              key={`${showEvent.date}-${showEvent.show.id}`}
-              orientation="horizontal"
-              title={title}
-              subtitle={subtitle}
-              date={new Date(showEvent.date).toLocaleDateString("hr-HR", {
-                timeZone: "Europe/Zagreb",
-                weekday: "short",
-                day: "2-digit",
-                month: "2-digit",
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-              image={showEvent.show.image_url}
-              slug={`/predstave/${showEvent.show.slug}`}
-            />
-          );
-        })}
-      </ul>
+      {showEvents.length <= 0 ? (
+        <p className="my-24 text-neutral-600 text-center">
+          Nema sadržaja za prikaz.
+        </p>
+      ) : (
+        <ul className="grid gap-8">
+          {showEvents.map((showEvent) => {
+            const { title, subtitle } = formatTitleAndSubtitle(
+              showEvent.show.title.rendered
+            );
+            return (
+              <Post
+                key={`${showEvent.date}-${showEvent.show.id}`}
+                orientation="horizontal"
+                title={title}
+                subtitle={subtitle}
+                date={new Date(showEvent.date).toLocaleDateString("hr-HR", {
+                  timeZone: "Europe/Zagreb",
+                  weekday: "short",
+                  day: "2-digit",
+                  month: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+                image={showEvent.show.image_url}
+                slug={`/predstave/${showEvent.show.slug}`}
+              />
+            );
+          })}
+        </ul>
+      )}
       <PostPagination className="mt-24" page={page} totalPages={totalPages} />
     </div>
   );
