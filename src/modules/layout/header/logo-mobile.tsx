@@ -25,7 +25,7 @@ export default function LogoMobile() {
   return (
     <Link href="/" className="lg:hidden">
       <Image
-        src="/teatar&td-logo-sa-tekstom.jpg"
+        src="/teatar-td/teatar&td-logo-sa-tekstom.jpg"
         alt="Teatar &TD logo"
         width={176}
         height={251}

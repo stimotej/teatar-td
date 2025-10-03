@@ -22,7 +22,7 @@ export default function Header() {
         {/* DESKTOP - IMAGES */}
         <Link href="/" className="hidden lg:block">
           <Image
-            src="/teatar&td-logo-tekst.jpg"
+            src="/teatar-td/teatar&td-logo-tekst.jpg"
             alt="Teatar&td logo - tekst"
             width={600}
             height={99}
@@ -30,7 +30,7 @@ export default function Header() {
           />
         </Link>
         <Image
-          src="/teatar&td-logo.png"
+          src="/teatar-td/teatar&td-logo.png"
           alt="Teatar&td logo"
           width={176}
           height={251}

@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="max-w-6xl mx-auto px-6 pb-6 md:px-8 md:pb-8 lg:px-12 lg:pb-12 flex items-center justify-center sm:justify-between gap-6">
       <Image
-        src="/muski-logo.png"
+        src="/teatar-td/muski-logo.png"
         alt="Logo muškarac"
         width={208}
         height={208}
@@ -14,7 +14,7 @@ export default function Footer() {
       />
       <div className="flex flex-col items-center gap-6">
         <Image
-          src="/teatar&td-logo-tekst.jpg"
+          src="/teatar-td/teatar&td-logo-tekst.jpg"
           alt="Teatar&TD logo tekst"
           width={300}
           height={64}
@@ -24,7 +24,7 @@ export default function Footer() {
         <NewsletterDialog className="mt-2" />
       </div>
       <Image
-        src="/zenski-logo.png"
+        src="/teatar-td/zenski-logo.png"
         alt="Logo žena"
         width={208}
         height={208}
