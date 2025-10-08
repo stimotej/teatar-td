@@ -1,11 +1,11 @@
-import { getUpcomingShows } from "@/lib/data/events";
+import { getDisplayShows } from "@/lib/data/events";
 import { formatTitleAndSubtitle } from "@/lib/utils/format-title-and-subtitle";
 import PageTitle from "@/modules/common/components/page-title";
 import Post from "@/modules/common/components/post";
 import PostPagination from "@/modules/common/components/post-pagination";
 
 export default async function ShowList({ page }: { page: number }) {
-  const { shows, totalPages } = await getUpcomingShows({ page, perPage: 24 });
+  const { shows, totalPages } = await getDisplayShows({ page, perPage: 24 });
 
   return (
     <section className="max-w-6xl mx-auto py-24">

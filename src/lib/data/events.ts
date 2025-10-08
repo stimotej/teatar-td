@@ -23,6 +23,38 @@ export async function getShows() {
   return posts;
 }
 
+export async function getDisplayShows(props?: {
+  page?: number;
+  perPage?: number;
+}) {
+  const posts = await getShows();
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const filteredPosts = posts.filter(
+    (post) =>
+      !!post.meta.end_showing && new Date(post.meta.end_showing) >= today
+  );
+
+  if (typeof props?.perPage !== "undefined") {
+    const { page = 1, perPage = 20 } = props;
+
+    const startIndex = (page - 1) * perPage;
+    const endIndex = startIndex + perPage;
+
+    return {
+      shows: filteredPosts.slice(startIndex, endIndex),
+      totalPages: Math.ceil(filteredPosts.length / perPage),
+    };
+  } else {
+    return {
+      shows: filteredPosts,
+      totalPages: 1,
+    };
+  }
+}
+
 export async function getUpcomingShows(props?: {
   page?: number;
   perPage?: number;
