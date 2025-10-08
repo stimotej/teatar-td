@@ -1,23 +1,21 @@
 import Post from "@/modules/common/components/post";
-import { getUpcomingShows } from "@/lib/data/events";
+import { getDisplayShows } from "@/lib/data/events";
 import PageTitle from "@/modules/common/components/page-title";
 import LinkButton from "@/modules/common/components/link-button";
 import { formatTitleAndSubtitle } from "@/lib/utils/format-title-and-subtitle";
 import { Separator } from "@/modules/common/components/separator";
 
 export default async function TodaysProgram() {
-  const { shows } = await getUpcomingShows();
+  const { shows } = await getDisplayShows({ perPage: 3 });
 
-  const firstThreeShows = shows.slice(0, 3);
-
-  if (firstThreeShows.length <= 0) return null;
+  if (shows.length <= 0) return null;
   return (
     <>
       <Separator />
       <section className="max-w-6xl mx-auto py-12">
         <PageTitle>Na programu</PageTitle>
         <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
-          {firstThreeShows.map((show) => {
+          {shows.map((show) => {
             const { title, subtitle } = formatTitleAndSubtitle(
               show.title.rendered
             );
