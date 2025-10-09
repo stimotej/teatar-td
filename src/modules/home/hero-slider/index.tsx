@@ -35,7 +35,7 @@ export default async function HeroSlider() {
                 description={show.excerpt.rendered}
                 image={show.image_url}
                 linkTitle="Kupi ulaznice..."
-                linkHref="https://www.ulaznice.hr/web/"
+                linkHref="https://www.ulaznice.hr/web/regular/18333798"
                 preloadImage
               />
             </CarouselItem>
