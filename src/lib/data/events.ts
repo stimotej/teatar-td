@@ -34,7 +34,9 @@ export async function getDisplayShows(props?: {
 
   const filteredPosts = posts.filter(
     (post) =>
-      !!post.meta.end_showing && new Date(post.meta.end_showing) >= today
+      !!post.meta.end_showing &&
+      (post.meta.end_showing === "never" ||
+        new Date(post.meta.end_showing) >= today)
   );
 
   if (typeof props?.perPage !== "undefined") {
