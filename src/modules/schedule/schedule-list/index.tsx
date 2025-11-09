@@ -1,5 +1,6 @@
 import { getShowEvents } from "@/lib/data/events";
 import { formatTitleAndSubtitle } from "@/lib/utils/format-title-and-subtitle";
+import { formatDate } from "@/lib/utils/formatDate";
 import Post from "@/modules/common/components/post";
 import PostPagination from "@/modules/common/components/post-pagination";
 
@@ -26,14 +27,7 @@ export default async function ScheduleList({ page }: { page: number }) {
                 orientation="horizontal"
                 title={title}
                 subtitle={subtitle}
-                date={new Date(showEvent.date).toLocaleDateString("hr-HR", {
-                  timeZone: "Europe/Zagreb",
-                  weekday: "short",
-                  day: "2-digit",
-                  month: "2-digit",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                date={formatDate(showEvent.date)}
                 image={showEvent.show.image_url}
                 slug={`/predstave/${showEvent.show.slug}`}
               />
