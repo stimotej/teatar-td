@@ -26,6 +26,9 @@ body {
 .html-content iframe {
   border-radius: var(--radius-lg);
   width: 100%;
+}
+
+.html-content .ql-video {
   height: 400px;
 }
 
@@ -36,4 +39,33 @@ body {
 .html-content ul {
   list-style-type: disc;
   list-style-position: inside;
+}
+
+.html-content .instagram-embed {
+  width: 100%;
+}
+
+.html-content .instagram-embed .embed-container {
+  display: inline-block;
+  max-width: 540px;
+  width: 100%;
+}
+
+.html-content .instagram-embed[style*="text-align:left"] .embed-container {
+  margin: 0 auto 0 0 !important;
+}
+
+.html-content .instagram-embed[style*="text-align:center"] .embed-container {
+  margin: 0 auto !important;
+}
+
+.html-content .instagram-embed[style*="text-align:right"] .embed-container {
+  margin: 0 0 0 auto !important;
+}
+
+.html-content .instagram-embed iframe,
+.html-content .instagram-embed blockquote.instagram-media {
+  border: none !important;
+  margin: 0 !important;
+  display: block !important;
 }
