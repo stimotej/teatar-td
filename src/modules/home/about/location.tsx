@@ -3,16 +3,20 @@ import MapPinIcon from "@/modules/common/icons/map-pin";
 export default function Location({
   iframeLoading = "lazy",
   className,
+  title,
+  excerpt,
 }: {
   iframeLoading?: "lazy" | "eager" | undefined;
   className?: string;
+  title?: string;
+  excerpt?: string;
 }) {
   return (
     <div className={className}>
       <div className="flex items-center gap-2">
         <MapPinIcon className="size-5 sm:size-6 md:size-8 text-(--primary) shrink-0" />
         <h3 className="uppercase text-lg sm:text-xl md:text-2xl font-semibold">
-          Kako do nas
+          {title}
         </h3>
       </div>
       <iframe
@@ -23,9 +27,7 @@ export default function Location({
         referrerPolicy="no-referrer-when-downgrade"
         className="border-0 mt-6 lg:min-w-lg"
       />
-      <p className="sm:text-lg md:text-xl mt-4">
-        Teatar &TD, Studentski centar u Zagrebu, Savska 25, Zagreb
-      </p>
+      <p className="sm:text-lg md:text-xl mt-4">{excerpt}</p>
     </div>
   );
 }

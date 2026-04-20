@@ -50,6 +50,10 @@ export type Post = {
     show_on_slider: boolean;
     is_course: boolean;
     archive_id: number;
+    teatar_td_phone: string;
+    teatar_td_email: string;
+    teatar_td_website_url: string;
+    teatar_td_address: string;
     accordion_items: {
       title: string;
       description: string;

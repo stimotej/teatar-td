@@ -7,6 +7,7 @@ export const teatarTdArchiveCategoryId = 354;
 
 export const teatarTdONamaPost = 40052;
 export const teatarTdProdajaUlaznicaPost = 40051;
+export const teatarTdKontaktiPost = 49674;
 
 export const sliderCategoryId = 318;
 
