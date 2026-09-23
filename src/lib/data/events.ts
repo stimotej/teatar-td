@@ -8,6 +8,9 @@ export async function getShows() {
     per_page: "9999",
     orderby: "date",
     order: "desc",
+    // Without content: the full response outgrew Next's 2MB fetch-cache
+    // limit, which silently froze the cached event list.
+    _fields: "id,slug,date,title,excerpt,image_url,meta,categories",
   };
 
   const queryParams = new URLSearchParams(params).toString();
@@ -140,9 +143,15 @@ export async function getShowEvents({
 }
 
 export async function getShow(slug: string) {
-  const shows = await getShows();
+  const queryParams = new URLSearchParams({ slug }).toString();
 
-  const show = shows.find((show) => show.slug === slug);
+  const posts = await fetchApi<Post[]>(`/event?${queryParams}`, {
+    next: {
+      revalidate: revalidateTime,
+      tags: ["events"],
+    },
+    cache: "force-cache",
+  });
 
-  return show;
+  return posts[0];
 }
