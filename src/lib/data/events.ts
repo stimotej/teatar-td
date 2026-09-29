@@ -10,7 +10,8 @@ export async function getShows() {
     order: "desc",
     // Without content: the full response outgrew Next's 2MB fetch-cache
     // limit, which silently froze the cached event list.
-    _fields: "id,slug,date,title,excerpt,image_url,meta,categories",
+    // featured_media is needed server-side to compute image_url.
+    _fields: "id,slug,date,title,excerpt,featured_media,image_url,meta,categories",
   };
 
   const queryParams = new URLSearchParams(params).toString();
